@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Traveloop — Inbox</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
+  <style>
+    .notification-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      transition: var(--transition);
+      cursor: pointer;
+      animation: slideUp 0.3s ease-out;
+    }
+    .notification-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-primary);
+      transform: translateX(4px);
+    }
+    .notification-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .notification-content {
+      flex: 1;
+    }
+    .notification-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .notification-text {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    .notification-time {
+      font-size: 0.75rem;
+      color: var(--accent-primary);
+      margin-top: 8px;
+      font-weight: 600;
+    }
+    .empty-inbox {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">✈️</div>
+      <span class="sidebar-logo-text">Traveloop</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a href="inbox.html" class="nav-link active"><span class="nav-icon">📥</span> Inbox</a>
+      <a href="social.html" class="nav-link"><span class="nav-icon">🌍</span> Social</a>
+      <a href="dashboard.html" class="nav-link"><span class="nav-icon">🏠</span> Dashboard</a>
+      <a href="myTrips.html" class="nav-link"><span class="nav-icon">🗺️</span> My Trips</a>
+      <a href="createTrip.html" class="nav-link"><span class="nav-icon">➕</span> New Trip</a>
+      <div class="nav-section-label" style="margin-top:12px">Account</div>
+      <a href="profile.html" class="nav-link"><span class="nav-icon">👤</span> Profile</a>
+      <a href="settings.html" class="nav-link"><span class="nav-icon">⚙️</span> Settings</a>
+      <button id="logoutBtn" class="nav-link" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;font-size:0.875rem">
+        <span class="nav-icon">🚪</span> Logout
+      </button>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">Loading...</div>
+        <div class="user-email" id="sidebarUserEmail"></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="top-header">
+      <button class="hamburger" id="hamburger">☰</button>
+      <span class="page-title">Inbox</span>
+    </header>
+
+    <div class="page-content" style="max-width: 800px">
+      <div style="margin-bottom: 24px">
+        <h2 style="font-size: 1.5rem; font-weight: 700">📥 Your Notifications</h2>
+        <p style="color: var(--text-muted)">Stay updated on your trips and community activity.</p>
+      </div>
+
+      <div id="notificationsList">
+        <!-- JS will populate this -->
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/inbox.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Traveloop — Create Trip</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">✈️</div>
+      <span class="sidebar-logo-text">Traveloop</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a href="inbox.html" class="nav-link"><span class="nav-icon">📥</span> Inbox</a>
+      <a href="social.html" class="nav-link"><span class="nav-icon">🌍</span> Social</a>
+      <a href="dashboard.html" class="nav-link"><span class="nav-icon">🏠</span> Dashboard</a>
+      <a href="myTrips.html" class="nav-link"><span class="nav-icon">🗺️</span> My Trips</a>
+      <a href="createTrip.html" class="nav-link active"><span class="nav-icon">➕</span> New Trip</a>
+      <div class="nav-section-label" style="margin-top:12px">Account</div>
+      <a href="profile.html" class="nav-link"><span class="nav-icon">👤</span> Profile</a>
+      <a href="settings.html" class="nav-link"><span class="nav-icon">⚙️</span> Settings</a>
+      <button id="logoutBtn" class="nav-link" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;font-size:0.875rem">
+        <span class="nav-icon">🚪</span> Logout
+      </button>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">Loading...</div>
+        <div class="user-email" id="sidebarUserEmail"></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="top-header">
+      <button class="hamburger" id="hamburger">☰</button>
+      <span class="page-title" id="pageTitle">Create Trip</span>
+      <div class="header-actions">
+        <a href="myTrips.html" class="btn btn-secondary btn-sm">← Back</a>
+      </div>
+    </header>
+
+    <div class="page-content" style="max-width:700px">
+      <div class="glass-card" style="padding:36px">
+        <h2 style="font-family:'Outfit',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:24px" id="formTitle">
+          ✈️ Plan a New Adventure
+        </h2>
+
+        <div id="alertBox" class="alert alert-error"></div>
+
+        <!-- Cover Preview -->
+        <div id="coverPreview" style="height:140px;background:var(--gradient-primary);border-radius:var(--radius-lg);margin-bottom:24px;display:flex;align-items:center;justify-content:center;font-size:2rem;overflow:hidden;position:relative">
+          <span style="color:var(--text-muted);font-size:2rem">🌍</span>
+        </div>
+
+        <form id="tripForm">
+          <div class="form-group">
+            <label class="form-label" for="tripName">Trip Name *</label>
+            <input id="tripName" type="text" class="form-input" placeholder="e.g. Summer Europe 2024" required/>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="tripDesc">Description</label>
+            <textarea id="tripDesc" class="form-textarea" placeholder="Describe your trip..."></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="startDate">Start Date</label>
+              <input id="startDate" type="date" class="form-input"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="endDate">End Date</label>
+              <input id="endDate" type="date" class="form-input"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="coverImage">Cover Image URL</label>
+            <input id="coverImage" type="url" class="form-input" placeholder="https://example.com/image.jpg"/>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:6px">
+              💡 Use Unsplash URLs for beautiful travel photos
+            </div>
+          </div>
+
+          <div style="display:flex;gap:12px;margin-top:8px">
+            <button id="submitBtn" type="submit" class="btn btn-primary" style="flex:1;justify-content:center;padding:14px">
+              ✈️ Create Trip
+            </button>
+            <a href="myTrips.html" class="btn btn-secondary" style="padding:14px 20px">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/createTrip.js"></script>
+</body>
+</html>

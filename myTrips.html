@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Traveloop — My Trips</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/dashboard.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">✈️</div>
+      <span class="sidebar-logo-text">Traveloop</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a href="inbox.html" class="nav-link"><span class="nav-icon">📥</span> Inbox</a>
+      <a href="social.html" class="nav-link"><span class="nav-icon">🌍</span> Social</a>
+      <a href="dashboard.html" class="nav-link"><span class="nav-icon">🏠</span> Dashboard</a>
+      <a href="myTrips.html" class="nav-link active"><span class="nav-icon">🗺️</span> My Trips</a>
+      <a href="createTrip.html" class="nav-link"><span class="nav-icon">➕</span> New Trip</a>
+      <div class="nav-section-label" style="margin-top:12px">Account</div>
+      <a href="profile.html" class="nav-link"><span class="nav-icon">👤</span> Profile</a>
+      <a href="settings.html" class="nav-link"><span class="nav-icon">⚙️</span> Settings</a>
+      <button id="logoutBtn" class="nav-link" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;font-size:0.875rem">
+        <span class="nav-icon">🚪</span> Logout
+      </button>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">Loading...</div>
+        <div class="user-email" id="sidebarUserEmail"></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="top-header">
+      <button class="hamburger" id="hamburger">☰</button>
+      <span class="page-title">My Trips <span id="tripsCount" style="font-size:0.8rem;color:var(--text-muted);font-weight:400"></span></span>
+      <div class="header-actions">
+        <button class="btn btn-primary btn-sm" id="createTripBtn">➕ New Trip</button>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <!-- Search & Filter Row -->
+      <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+        <input id="searchInput" type="text" class="form-input" placeholder="🔍 Search trips..." style="flex:1;min-width:200px"/>
+        <select id="filterSelect" class="form-select" style="width:auto;min-width:140px">
+          <option value="all">All Trips</option>
+          <option value="upcoming">Upcoming</option>
+          <option value="past">Past</option>
+          <option value="public">Public</option>
+        </select>
+      </div>
+
+      <!-- Empty State -->
+      <div id="tripsEmpty" class="empty-state" style="display:none">
+        <span class="empty-state-icon">🗺️</span>
+        <h3>No trips found</h3>
+        <p>Create your first trip to get started!</p>
+        <button class="btn btn-primary" style="margin-top:16px" onclick="window.location.href='createTrip.html'">✈️ Create Trip</button>
+      </div>
+
+      <!-- Trips Grid -->
+      <div class="trips-grid" id="tripsGrid">
+        <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted)">
+          <span class="spinner"></span> Loading trips...
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/myTrips.js"></script>
+</body>
+</html>

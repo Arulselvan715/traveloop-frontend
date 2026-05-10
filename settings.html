@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Traveloop — Settings</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">✈️</div>
+      <span class="sidebar-logo-text">Traveloop</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a href="inbox.html" class="nav-link"><span class="nav-icon">📥</span> Inbox</a>
+      <a href="social.html" class="nav-link"><span class="nav-icon">🌍</span> Social</a>
+      <a href="dashboard.html" class="nav-link"><span class="nav-icon">🏠</span> Dashboard</a>
+      <a href="myTrips.html" class="nav-link"><span class="nav-icon">🗺️</span> My Trips</a>
+      <a href="createTrip.html" class="nav-link"><span class="nav-icon">➕</span> New Trip</a>
+      <div class="nav-section-label" style="margin-top:12px">Account</div>
+      <a href="profile.html" class="nav-link"><span class="nav-icon">👤</span> Profile</a>
+      <a href="settings.html" class="nav-link active"><span class="nav-icon">⚙️</span> Settings</a>
+      <button id="logoutBtn" class="nav-link" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;font-size:0.875rem">
+        <span class="nav-icon">🚪</span> Logout
+      </button>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">Loading...</div>
+        <div class="user-email" id="sidebarUserEmail"></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="top-header">
+      <button class="hamburger" id="hamburger">☰</button>
+      <span class="page-title">Settings</span>
+    </header>
+
+    <div class="page-content" style="max-width:800px">
+
+      <!-- Theme Selector -->
+      <div class="glass-card" style="padding:28px;margin-bottom:24px">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:20px">🎨 App Theme</h3>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:20px">Choose a visual theme for Traveloop.</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <button class="btn btn-secondary" onclick="setTheme('default')">Night Sky (Default)</button>
+          <button class="btn btn-secondary" onclick="setTheme('ocean')" style="background:rgba(14,165,233,0.2);border-color:#0ea5e9">Deep Ocean</button>
+          <button class="btn btn-secondary" onclick="setTheme('sunset')" style="background:rgba(244,63,94,0.2);border-color:#f43f5e">Warm Sunset</button>
+          <button class="btn btn-secondary" onclick="setTheme('light')" style="background:#f8fafc;color:#0f172a;border-color:#cbd5e1">☀️ Light Mode</button>
+        </div>
+      </div>
+
+      <!-- Change Password -->
+      <div class="glass-card" style="padding:28px">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:20px">🔒 Change Password</h3>
+        <div id="passwordAlert" class="alert"></div>
+        <form id="passwordForm">
+          <div class="form-group">
+            <label class="form-label">Current Password</label>
+            <input id="currentPassword" type="password" class="form-input" required/>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">New Password</label>
+              <input id="newPassword" type="password" class="form-input" placeholder="Min. 6 characters" required/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Confirm Password</label>
+              <input id="confirmNewPassword" type="password" class="form-input" required/>
+            </div>
+          </div>
+          <button id="savePasswordBtn" type="submit" class="btn btn-primary">🔒 Update Password</button>
+        </form>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/settings.js"></script>
+</body>
+</html>

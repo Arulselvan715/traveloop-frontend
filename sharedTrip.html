@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Traveloop — Shared Trip</title>
+  <meta name="description" content="View this shared Traveloop travel itinerary."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    body { background: var(--gradient-hero); }
+    .shared-header {
+      background: rgba(15,15,26,0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .shared-logo-icon { width: 36px; height: 36px; background: var(--gradient-primary); border-radius: 10px; display:flex;align-items:center;justify-content:center;font-size:1.1rem; }
+    .shared-logo-text { font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+    .shared-content { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
+    .shared-trip-hero {
+      background: var(--gradient-primary);
+      border-radius: var(--radius-xl);
+      padding: 48px 40px;
+      margin-bottom: 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+    }
+    .shared-trip-hero::before {
+      content:'';position:absolute;inset:0;background:rgba(0,0,0,0.5);border-radius:inherit;
+    }
+    .shared-trip-hero > * { position: relative; z-index: 1; }
+    .shared-trip-name { font-family:'Outfit',sans-serif;font-size:2rem;font-weight:800;margin-bottom:8px; }
+    .shared-trip-owner { font-size:0.9rem;color:rgba(255,255,255,0.7);margin-bottom:12px; }
+    .shared-cta { margin-top: 24px; }
+  </style>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
+</head>
+<body>
+  <!-- Header -->
+  <header class="shared-header">
+    <div class="shared-logo-icon">✈️</div>
+    <span class="shared-logo-text">Traveloop</span>
+    <div style="flex:1"></div>
+    <a href="login.html" class="btn btn-primary btn-sm">Sign In to Plan Your Trip</a>
+  </header>
+
+  <div class="shared-content">
+    <!-- Loading State -->
+    <div id="loadingState" style="text-align:center;padding:80px;color:var(--text-muted)">
+      <div class="spinner" style="width:32px;height:32px;border-width:3px;margin:0 auto 16px"></div>
+      <p>Loading shared itinerary...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="errorState" style="display:none;text-align:center;padding:80px">
+      <div style="font-size:4rem;margin-bottom:16px">🔒</div>
+      <h2 style="font-size:1.3rem;margin-bottom:8px">Trip Not Found</h2>
+      <p style="color:var(--text-muted)" id="errorMessage">This trip is private or the link is invalid.</p>
+      <a href="login.html" class="btn btn-primary" style="margin-top:24px">Go to Traveloop</a>
+    </div>
+
+    <!-- Content -->
+    <div id="contentState" style="display:none">
+      <div class="shared-trip-hero" id="tripHero">
+        <h1 class="shared-trip-name" id="tripName">Loading...</h1>
+        <div class="shared-trip-owner" id="tripOwner"></div>
+        <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:0.875rem;color:rgba(255,255,255,0.8)">
+          <span>📅 <span id="tripDates"></span></span>
+          <span>📍 <span id="stopCount"></span></span>
+        </div>
+        <p style="max-width:500px;margin:12px auto 0;color:rgba(255,255,255,0.7);font-size:0.875rem" id="tripDesc"></p>
+        <div class="shared-cta">
+          <a href="signup.html" class="btn btn-primary">Plan Your Own Trip →</a>
+        </div>
+      </div>
+
+      <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:16px">📍 Itinerary</h2>
+      <div id="stopsContainer"></div>
+
+      <div style="text-align:center;padding:40px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:var(--radius-xl);margin-top:32px">
+        <div style="font-size:2rem;margin-bottom:12px">✈️</div>
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">Ready to Plan Your Adventure?</h3>
+        <p style="color:var(--text-muted);margin-bottom:20px">Join Traveloop and create beautiful travel itineraries for free.</p>
+        <a href="signup.html" class="btn btn-primary">Get Started Free →</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Standalone API_BASE for shared page
+    const API_BASE = 'http://localhost:5000/api';
+  </script>
+  <script src="js/api.js"></script>
+  <script src="js/sharedTrip.js"></script>
+</body>
+</html>

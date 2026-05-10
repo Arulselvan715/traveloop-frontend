@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Traveloop — Trip Detail</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/itinerary.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
+</head>
+<body>
+<div class="app-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">✈️</div>
+      <span class="sidebar-logo-text">Traveloop</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a href="inbox.html" class="nav-link"><span class="nav-icon">📥</span> Inbox</a>
+      <a href="social.html" class="nav-link"><span class="nav-icon">🌍</span> Social</a>
+      <a href="dashboard.html" class="nav-link"><span class="nav-icon">🏠</span> Dashboard</a>
+      <a href="myTrips.html" class="nav-link"><span class="nav-icon">🗺️</span> My Trips</a>
+      <a href="createTrip.html" class="nav-link"><span class="nav-icon">➕</span> New Trip</a>
+      <div class="nav-section-label" style="margin-top:12px">This Trip</div>
+      <div class="nav-link" style="cursor:default;opacity:0.7;font-size:0.8rem" id="sidebarTripName">Loading...</div>
+      <div class="nav-section-label" style="margin-top:12px">Account</div>
+      <a href="profile.html" class="nav-link"><span class="nav-icon">👤</span> Profile</a>
+      <a href="settings.html" class="nav-link"><span class="nav-icon">⚙️</span> Settings</a>
+      <button id="logoutBtn" class="nav-link" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;font-size:0.875rem">
+        <span class="nav-icon">🚪</span> Logout
+      </button>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">Loading...</div>
+        <div class="user-email" id="sidebarUserEmail"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="top-header">
+      <button class="hamburger" id="hamburger">☰</button>
+      <span class="page-title" id="tripTitle">Loading...</span>
+      <div class="header-actions">
+        <a href="myTrips.html" class="btn btn-secondary btn-sm">← Trips</a>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <!-- Global Alert -->
+      <div id="topAlert" class="alert"></div>
+
+      <!-- Trip Hero -->
+      <div class="trip-hero" style="margin-bottom:24px">
+        <h1 class="trip-hero-name" id="tripTitle2">Loading...</h1>
+        <div class="trip-hero-meta">
+          <span>📅 <span id="tripDates">—</span></span>
+          <span id="tripDesc" style="color:var(--text-muted);font-style:italic"></span>
+        </div>
+        <div class="trip-hero-share">
+          <button class="btn btn-secondary btn-sm" id="shareBtn">🌐 Share Trip</button>
+          <button class="btn btn-secondary btn-sm" id="unshareBtn" style="display:none">🔒 Make Private</button>
+        </div>
+      </div>
+
+      <!-- Share Banner -->
+      <div id="shareBanner" class="share-banner" style="display:none">
+        <span>🔗</span>
+        <div class="share-link" id="shareLink"></div>
+        <button class="btn btn-secondary btn-sm" id="copyShareLink">Copy</button>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="itinerary">🗺️ Itinerary</button>
+        <button class="tab-btn" data-tab="activities">🎯 Activities</button>
+        <button class="tab-btn" data-tab="budget">💰 Budget</button>
+        <button class="tab-btn" data-tab="checklist">🎒 Packing</button>
+        <button class="tab-btn" data-tab="notes">📝 Notes</button>
+      </div>
+
+      <!-- ─── TAB: ITINERARY ──────────────────────────────── -->
+      <div class="tab-content active" id="tab-itinerary">
+        <div class="section-header">
+          <h2 class="section-title">Cities & Stops</h2>
+          <button class="btn btn-primary btn-sm" onclick="openModal('addStopModal')">+ Add City</button>
+        </div>
+        <div id="stopsEmpty" class="empty-state" style="display:none">
+          <span class="empty-state-icon">🏙️</span>
+          <h3>No stops added yet</h3>
+          <p>Add cities to build your itinerary</p>
+        </div>
+        <div id="stopsList"></div>
+      </div>
+
+      <!-- ─── TAB: ACTIVITIES ─────────────────────────────── -->
+      <div class="tab-content" id="tab-activities">
+        <div class="section-header">
+          <h2 class="section-title">Activities</h2>
+        </div>
+        <div class="form-group" style="margin-bottom:16px">
+          <label class="form-label">Select City</label>
+          <select id="activityStopSelect" class="form-select" onchange="loadActivities()">
+            <option value="">— Choose a city —</option>
+          </select>
+        </div>
+        <div id="addActivityRow" style="display:none;margin-bottom:16px">
+          <button class="btn btn-primary btn-sm" onclick="openModal('addActivityModal')">+ Add Activity</button>
+        </div>
+        <div id="activitiesEmpty" class="empty-state" style="display:none">
+          <span class="empty-state-icon">🎯</span>
+          <h3>No activities yet</h3>
+          <p>Add activities like sightseeing, dining, and more</p>
+        </div>
+        <div id="activitiesList"></div>
+      </div>
+
+      <!-- ─── TAB: BUDGET ─────────────────────────────────── -->
+      <div class="tab-content" id="tab-budget">
+        <div class="section-header">
+          <h2 class="section-title">Budget Planner</h2>
+          <button class="btn btn-primary btn-sm" id="saveBudgetBtn" onclick="saveBudget()">💾 Save</button>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="stat-cards" style="margin-bottom:24px">
+          <div class="stat-card">
+            <div class="stat-card-label">Total Budget</div>
+            <div class="stat-card-value indigo" id="budgetTotal">₹0.00</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Per Day</div>
+            <div class="stat-card-value cyan" id="budgetDaily">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Activity Cost</div>
+            <div class="stat-card-value amber" id="budgetActivityCost">₹0.00</div>
+          </div>
+        </div>
+
+        <!-- Budget Inputs -->
+        <div class="budget-row">
+          <div class="budget-input-card">
+            <div class="budget-input-label">🚗 Transport</div>
+            <input type="number" id="budgetTransport" class="budget-input-field" placeholder="0" min="0" step="0.01"/>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="bar-transport" style="width:0%"></div></div>
+          </div>
+          <div class="budget-input-card">
+            <div class="budget-input-label">🏨 Stay / Hotel</div>
+            <input type="number" id="budgetStay" class="budget-input-field" placeholder="0" min="0" step="0.01"/>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="bar-stay" style="width:0%;background:var(--gradient-green)"></div></div>
+          </div>
+          <div class="budget-input-card">
+            <div class="budget-input-label">🍽️ Food</div>
+            <input type="number" id="budgetFood" class="budget-input-field" placeholder="0" min="0" step="0.01"/>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="bar-food" style="width:0%;background:var(--gradient-warm)"></div></div>
+          </div>
+          <div class="budget-input-card">
+            <div class="budget-input-label">📦 Other</div>
+            <input type="number" id="budgetOther" class="budget-input-field" placeholder="0" min="0" step="0.01"/>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="bar-other" style="width:0%;background:linear-gradient(135deg,#a78bfa,#ec4899)"></div></div>
+          </div>
+        </div>
+
+        <div class="budget-input-card" style="margin-top:8px;display:flex;align-items:center;gap:12px">
+          <div class="budget-input-label" style="margin:0;flex:1">🎯 Activity Cost (auto-calculated)</div>
+          <div style="font-size:1.3rem;font-weight:700;color:var(--accent-amber)" id="budgetActivityCost2"></div>
+          <div class="progress-bar-wrap" style="flex:1"><div class="progress-bar-fill" id="bar-activity" style="width:0%;background:linear-gradient(135deg,#f59e0b,#f43f5e)"></div></div>
+        </div>
+      </div>
+
+      <!-- ─── TAB: CHECKLIST ──────────────────────────────── -->
+      <div class="tab-content" id="tab-checklist">
+        <div class="section-header">
+          <h2 class="section-title">🎒 Packing List</h2>
+          <button class="btn btn-primary btn-sm" onclick="openModal('addItemModal')">+ Add Item</button>
+        </div>
+
+        <div class="glass-card" style="padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:12px">
+          <div style="flex:1">
+            <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:6px" id="packingProgress">0 / 0 packed</div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="packingBar" style="width:0%;background:var(--gradient-green)"></div></div>
+          </div>
+        </div>
+
+        <div id="checklistEmpty" class="empty-state" style="display:none">
+          <span class="empty-state-icon">🎒</span>
+          <h3>Checklist is empty</h3>
+          <p>Add items you need to pack for your trip</p>
+        </div>
+        <div id="checklistItems"></div>
+      </div>
+
+      <!-- ─── TAB: NOTES ──────────────────────────────────── -->
+      <div class="tab-content" id="tab-notes">
+        <div class="section-header">
+          <h2 class="section-title">📝 Travel Journal</h2>
+          <button class="btn btn-primary btn-sm" onclick="openModal('addNoteModal')">+ Add Note</button>
+        </div>
+        <div id="notesEmpty" class="empty-state" style="display:none">
+          <span class="empty-state-icon">📓</span>
+          <h3>No notes yet</h3>
+          <p>Capture your thoughts, ideas, and travel memories</p>
+        </div>
+        <div id="notesList"></div>
+      </div>
+    </div><!-- /page-content -->
+  </main>
+</div>
+
+<!-- ── Modal: Add Stop ────────────────────────────────────── -->
+<div class="modal-overlay" id="addStopModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">➕ Add City / Stop</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form id="addStopForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">City *</label>
+          <input id="stopCity" type="text" class="form-input" placeholder="Paris" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Country</label>
+          <input id="stopCountry" type="text" class="form-input" placeholder="France"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Arrival Date</label>
+          <input id="stopArrival" type="date" class="form-input"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Departure Date</label>
+          <input id="stopDeparture" type="date" class="form-input"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea id="stopNotes" class="form-textarea" placeholder="Any notes for this city..." style="min-height:60px"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Add City</button>
+    </form>
+  </div>
+</div>
+
+<!-- ── Modal: Edit Stop ───────────────────────────────────── -->
+<div class="modal-overlay" id="editStopModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">✏️ Edit Stop</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form id="editStopForm">
+      <input type="hidden" id="editStopId"/>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">City *</label>
+          <input id="editStopCity" type="text" class="form-input" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Country</label>
+          <input id="editStopCountry" type="text" class="form-input"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Arrival</label>
+          <input id="editStopArrival" type="date" class="form-input"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Departure</label>
+          <input id="editStopDeparture" type="date" class="form-input"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea id="editStopNotes" class="form-textarea" style="min-height:60px"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Save Changes</button>
+    </form>
+  </div>
+</div>
+
+<!-- ── Modal: Add Activity ────────────────────────────────── -->
+<div class="modal-overlay" id="addActivityModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">🎯 Add Activity</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form id="addActivityForm">
+      <div class="form-group">
+        <label class="form-label">Activity Name *</label>
+        <input id="activityName" type="text" class="form-input" placeholder="e.g. Visit Eiffel Tower" required/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select id="activityCategory" class="form-select">
+            <option value="">— Select —</option>
+            <option>Sightseeing</option><option>Food</option><option>Adventure</option>
+            <option>Shopping</option><option>Culture</option><option>Transport</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Duration (hours)</label>
+          <input id="activityDuration" type="number" class="form-input" placeholder="2" min="0.5" step="0.5"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Estimated Cost (₹)</label>
+        <input id="activityCost" type="number" class="form-input" placeholder="0.00" min="0" step="0.01"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea id="activityDesc" class="form-textarea" placeholder="Details about this activity..." style="min-height:60px"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Add Activity</button>
+    </form>
+  </div>
+</div>
+
+<!-- ── Modal: Add Checklist Item ─────────────────────────── -->
+<div class="modal-overlay" id="addItemModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">➕ Add Packing Item</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form id="addItemForm">
+      <div class="form-group">
+        <label class="form-label">Item Name *</label>
+        <input id="itemName" type="text" class="form-input" placeholder="e.g. Passport, Sunscreen..." required/>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Add Item</button>
+    </form>
+  </div>
+</div>
+
+<!-- ── Modal: Add Note ────────────────────────────────────── -->
+<div class="modal-overlay" id="addNoteModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">📝 Add Note</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form id="addNoteForm">
+      <div class="form-group">
+        <label class="form-label">Title (optional)</label>
+        <input id="noteTitle" type="text" class="form-input" placeholder="Note title..."/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Content *</label>
+        <textarea id="noteContent" class="form-textarea" placeholder="Write your note..." required style="min-height:120px"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Save Note</button>
+    </form>
+  </div>
+</div>
+
+<!-- ── Modal: Edit Note ───────────────────────────────────── -->
+<div class="modal-overlay" id="editNoteModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title">✏️ Edit Note</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form id="editNoteForm">
+      <input type="hidden" id="editNoteId"/>
+      <div class="form-group">
+        <label class="form-label">Title</label>
+        <input id="editNoteTitle" type="text" class="form-input" placeholder="Note title..."/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Content *</label>
+        <textarea id="editNoteContent" class="form-textarea" required style="min-height:120px"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Update Note</button>
+    </form>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/itinerary.js"></script>
+<script>
+  // Sync the two tripTitle elements
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new MutationObserver(() => {
+      document.getElementById('tripTitle2').textContent = document.getElementById('tripTitle').textContent;
+    });
+    observer.observe(document.getElementById('tripTitle'), { childList: true, characterData: true, subtree: true });
+  });
+</script>
+</body>
+</html>

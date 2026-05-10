@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Traveloop — Dashboard</title>
+  <meta name="description" content="Your Traveloop travel planning dashboard."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/dashboard.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
+</head>
+<body>
+<div class="app-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">✈️</div>
+      <span class="sidebar-logo-text">Traveloop</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a href="inbox.html" class="nav-link"><span class="nav-icon">📥</span> Inbox</a>
+      <a href="social.html" class="nav-link"><span class="nav-icon">🌍</span> Social</a>
+      <a href="dashboard.html" class="nav-link active"><span class="nav-icon">🏠</span> Dashboard</a>
+      <a href="myTrips.html" class="nav-link"><span class="nav-icon">🗺️</span> My Trips</a>
+      <a href="createTrip.html" class="nav-link"><span class="nav-icon">➕</span> New Trip</a>
+      <div class="nav-section-label" style="margin-top:12px">Account</div>
+      <a href="profile.html" class="nav-link"><span class="nav-icon">👤</span> Profile</a>
+      <a href="settings.html" class="nav-link"><span class="nav-icon">⚙️</span> Settings</a>
+      <button id="logoutBtn" class="nav-link" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;font-size:0.875rem">
+        <span class="nav-icon">🚪</span> Logout
+      </button>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">Loading...</div>
+        <div class="user-email" id="sidebarUserEmail"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="top-header">
+      <button class="hamburger" id="hamburger">☰</button>
+      <span class="page-title">Dashboard</span>
+      <div class="header-actions">
+        <button class="btn btn-primary btn-sm" id="createTripBtn">✈️ New Trip</button>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <!-- Hero Banner -->
+      <div class="dashboard-hero">
+        <div class="hero-greeting">Good day, traveler!</div>
+        <h1 class="hero-title">Welcome, <span id="heroName">...</span> 👋</h1>
+        <p class="hero-subtitle">Where will your next adventure take you?</p>
+        <div class="hero-emoji">🌏</div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="stat-cards" style="margin-bottom:32px">
+        <div class="stat-card">
+          <div class="stat-card-label">Total Trips</div>
+          <div class="stat-card-value indigo" id="statTotalTrips">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Upcoming</div>
+          <div class="stat-card-value cyan" id="statUpcoming">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Cities Visited</div>
+          <div class="stat-card-value green" id="statCities">—</div>
+        </div>
+      </div>
+
+      <!-- Recent Trips -->
+      <div style="margin-bottom:40px">
+        <div class="section-header">
+          <h2 class="section-title">✈️ Recent Trips</h2>
+          <a href="myTrips.html" class="btn btn-secondary btn-sm">View All</a>
+        </div>
+
+        <div id="tripsEmpty" class="empty-state" style="display:none">
+          <span class="empty-state-icon">🗺️</span>
+          <h3>No trips yet</h3>
+          <p>Start planning your first adventure!</p>
+          <button class="btn btn-primary" style="margin-top:16px" onclick="window.location.href='createTrip.html'">✈️ Create Trip</button>
+        </div>
+
+        <div class="trips-grid" id="recentTrips"></div>
+      </div>
+
+      <!-- Recommended Destinations -->
+      <div>
+        <div class="section-header">
+          <h2 class="section-title">🌍 Explore Destinations</h2>
+        </div>
+        <div class="destinations-grid" id="destinationsGrid"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

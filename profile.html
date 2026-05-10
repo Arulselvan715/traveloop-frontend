@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Traveloop — Profile</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">✈️</div>
+      <span class="sidebar-logo-text">Traveloop</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <a href="inbox.html" class="nav-link"><span class="nav-icon">📥</span> Inbox</a>
+      <a href="social.html" class="nav-link"><span class="nav-icon">🌍</span> Social</a>
+      <a href="dashboard.html" class="nav-link"><span class="nav-icon">🏠</span> Dashboard</a>
+      <a href="myTrips.html" class="nav-link"><span class="nav-icon">🗺️</span> My Trips</a>
+      <a href="createTrip.html" class="nav-link"><span class="nav-icon">➕</span> New Trip</a>
+      <div class="nav-section-label" style="margin-top:12px">Account</div>
+      <a href="profile.html" class="nav-link active"><span class="nav-icon">👤</span> Profile</a>
+      <a href="settings.html" class="nav-link"><span class="nav-icon">⚙️</span> Settings</a>
+      <button id="logoutBtn" class="nav-link" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;font-size:0.875rem">
+        <span class="nav-icon">🚪</span> Logout
+      </button>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatar">?</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">Loading...</div>
+        <div class="user-email" id="sidebarUserEmail"></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="top-header">
+      <button class="hamburger" id="hamburger">☰</button>
+      <span class="page-title">My Profile</span>
+    </header>
+
+    <div class="page-content" style="max-width:800px">
+      <!-- Profile Header Card -->
+      <div class="glass-card" style="padding:32px;margin-bottom:24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+        <div id="avatarPreview" class="user-avatar" style="width:80px;height:80px;font-size:1.8rem;font-weight:700;border:3px solid rgba(99,102,241,0.4)">?</div>
+        <div>
+          <h2 style="font-family:'Outfit',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:4px" id="sidebarUserName2">Loading...</h2>
+          <p style="color:var(--text-muted);font-size:0.875rem">Member since <span id="memberSince">—</span></p>
+        </div>
+        <div class="stat-cards" style="margin:0;flex:1;min-width:260px">
+          <div class="stat-card">
+            <div class="stat-card-label">My Trips</div>
+            <div class="stat-card-value indigo" id="statMyTrips">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Cities</div>
+            <div class="stat-card-value cyan" id="statMyCities">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Update Profile -->
+      <div class="glass-card" style="padding:28px;margin-bottom:24px">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:20px">✏️ Update Profile</h3>
+        <div id="profileAlert" class="alert"></div>
+        <form id="profileForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input id="profileName" type="text" class="form-input" required/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input id="profileEmail" type="email" class="form-input" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Profile Image URL</label>
+            <input id="profileImage" type="url" class="form-input" placeholder="https://example.com/avatar.jpg"/>
+          </div>
+          <button id="saveProfileBtn" type="submit" class="btn btn-primary">💾 Save Profile</button>
+        </form>
+      </div>
+
+      <!-- Traveler Rating & Stats -->
+      <div class="glass-card" style="padding:28px;margin-bottom:24px;text-align:center">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px">🌟 Traveler Level</h3>
+        <div id="travelerLevelBadge" style="font-size:2rem;font-weight:800;color:var(--primary);margin-bottom:5px">Loading...</div>
+        <p id="travelerLevelDesc" style="color:var(--text-muted);font-size:0.9rem">Plan more trips to level up!</p>
+      </div>
+
+      <!-- Places Visited -->
+      <div class="glass-card" style="padding:28px">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:20px">📍 Places Visited</h3>
+        <div id="placesVisitedGrid" style="display:flex;flex-wrap:wrap;gap:12px">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/profile.js"></script>
+</body>
+</html>

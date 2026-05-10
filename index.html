@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop - Plan Your Dream Trip</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Specific Landing Page Styles */
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+      background-color: var(--bg-dark);
+    }
+    
+    /* Background elements matching the app */
+    .bg-shape {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      opacity: 0.5;
+    }
+    .shape-1 { width: 500px; height: 500px; background: var(--primary); top: -150px; left: -150px; }
+    .shape-2 { width: 400px; height: 400px; background: var(--secondary); bottom: -100px; right: -100px; }
+    
+    .landing-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      text-align: center;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .landing-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #fff, var(--primary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .landing-subtitle {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-landing {
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+      min-width: 160px;
+      justify-content: center;
+      border-radius: 50px; /* pill shape */
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+    }
+    
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255,255,255,0.4);
+      transform: translateY(-2px);
+    }
+  </style>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
+</head>
+<body>
+  <div class="bg-shape shape-1"></div>
+  <div class="bg-shape shape-2"></div>
+
+  <div class="landing-card">
+    <div class="logo-icon">✈️</div>
+    <h1 class="landing-title">Traveloop</h1>
+    <p class="landing-subtitle">
+      Your ultimate travel companion. Plan itineraries, track expenses, manage packing checklists, and write travel notes—all in one beautiful place.
+    </p>
+    
+    <div class="button-group">
+      <a href="signup.html" class="btn btn-primary btn-landing">Get Started Free</a>
+      <a href="login.html" class="btn btn-outline btn-landing">Log In</a>
+    </div>
+  </div>
+
+  <script>
+    // If the user is already logged in, take them straight to their dashboard automatically
+    if (localStorage.getItem('traveloop_token')) {
+      window.location.replace('dashboard.html');
+    }
+  </script>
+</body>
+</html>
